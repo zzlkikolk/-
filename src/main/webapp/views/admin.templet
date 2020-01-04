@@ -1,0 +1,101 @@
+
+<div style="background-color:#ffffff;height:100%;padding:10% 0;">
+    <div class="form-horizontal col-sm-12 pull-left" >
+        <h3 class="col-sm-offset-1">账户信息: </h3>
+        <div class="form-group">
+            <label for="a_id" class="control-label col-sm-offset-1 col-sm-1 ">ID: </label>
+            <div class="col-sm-1 input-group">
+                <input id="a_id" type="text" class="form-control" placeholder="ID：" style="border-radius:5px;" disabled="disabled"></input>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="a_name" class="control-label col-sm-offset-1 col-sm-1">用户名:</label>
+            <div class="col-sm-2 input-group">
+                <input type="text" class="form-control" id="a_name" placeholder="用户名：" style="border-radius:5px;"></input>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="oldpass" class="control-label col-sm-offset-1 col-sm-1">旧密码: </label>
+            <div class="col-sm-2 input-group">
+                <input type="password" class="form-control" id="oldpass" placeholder="旧密码: "></input>
+                <span class="input-group-addon glyphicon glyphicon-eye-close" ></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="pass" class="control-label col-sm-offset-1 col-sm-1">新密码: </label>
+            <div class="col-sm-2 input-group">
+                <input type="password" class="form-control" id="pass" placeholder="新密码: "></input>
+                <span class="input-group-addon glyphicon glyphicon-eye-close" ></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="code" class="control-label col-sm-offset-1 col-sm-1">验证码：</label>
+            <div class="col-sm-3 input-group">
+                <input type="text" class="form-control pull-left" id="code" style="width:35%;border-radius:5px;" placeholder="请输入验证码"></input>
+                <img id="codeimg" class="v-code-img" style="clear: both; width: 28%;height: 32px;margin-left: 10px;border-radius:2px;" src=""></img>
+            </div>
+        </div>
+        <div class="col-sm-offset-2">
+            <button id="sub" class="btn btn-default  col-sm-2" type="button" style="margin-left:1%;">提交修改</button>
+        </div>
+    </div>
+    <script>
+        $(function(){
+            // 验证码
+            var codeImgUrl = "getImg?t=";
+            $("#codeimg").click(function() {
+                    this.src = codeImgUrl + new Date().getTime();
+                })
+                .attr("src", codeImgUrl + new Date().getTime());
+             var page = $("#page");
+             // 渲染数据
+              $.getJSON("adminInfo",function(res){
+                    if(res.status==200&&res.data!=null){
+                        $('#a_id').val(res.data.id);
+                        $('#a_name').val(res.data.a_name);
+                        $("#oldpass").val(res.data.a_password);
+                        // 保存当前页面数据
+                        page.data('user-info',page.html());
+                    }else {
+                        alert(res.msg);
+                    }
+                });
+            // 修改密码
+            $("#sub").click(function(){
+                var data = { name:$("#a_name").val(),oldpass:$("#oldpass").val(),pass:$("#pass").val(),code:$("#code").val() };
+                $.ajax({
+                    type: "POST",
+                    url: 'setAdmin',  //默认当前页
+                    data: data,  //格式{key:value}
+                    dataType: "json",
+                    success: function (res) {  //请求成功回调
+                        if(res.status==200){
+                            // 显示信息
+                            $('#a_id').val(res.data.id);
+                            $('#a_name').val(res.data.a_name);
+                            $("#oldpass").val(res.data.a_password);
+                            $("#pass").val(' ');
+                            $("#code").val(' ');
+                        }
+                        $('#codeimg').trigger("click");
+                        alert(res.msg);
+                    },
+                    error: function (e) {  //请求超时回调
+                        if(e.statusText === "timeout") e.statusText = "请求超时";
+                        alert(e.statusText);
+                        $('#codeimg').trigger("click")
+                    }
+                });
+            });
+            // 查看密码
+            $(".input-group .glyphicon").click(function(){
+                if($(this).hasClass("glyphicon-eye-close")){
+                    $(this).removeClass("glyphicon-eye-close").addClass("glyphicon-eye-open").prev().attr("type","text");
+                }else {
+                    $(this).removeClass("glyphicon-eye-open").addClass("glyphicon-eye-close").prev().attr("type","password")
+                }
+                })
+            })
+    </script>
+</div>
+

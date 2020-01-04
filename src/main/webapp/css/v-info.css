@@ -1,0 +1,147 @@
+/*
+ * @Descripttion: 
+ * @version: 1.0.0
+ * @Author: 鱼小陌
+ * @Date: 2019-09-04 19:25:07
+ * @LastEditors: 鱼小陌
+ * @LastEditTime: 2019-09-06 22:46:05
+ */
+html,body {
+    background-color: #ecf0f1;
+    color: #444D4D;
+    width: 100%;
+    height: 100%;
+}
+
+/* nav-left start */
+.v-nav-left {
+    width: 13rem;
+    height: 100%;
+    background-color: #ffffff;
+    box-shadow: 0.625rem 0 0.625rem rgba(0, 0, 0, .03);
+    /* border-right: 0.0625rem solid rgba(0, 0, 0, .09); */
+}
+.v-nav-header {
+    height: 4.125rem;
+    width: 13rem;
+    line-height: 4.125rem;
+}
+.v-nav-header img {
+    width: 3.25rem;
+    height: 3.25rem;
+    margin: 0.5rem;
+    border-radius: 50%;
+}
+.v-nav-header h1 {
+    display: inline;
+    font-size: 1.125rem;
+    font-weight: bolder;
+    letter-spacing: 0.0625rem;
+    cursor: default;
+}
+.v-nav-body {
+    width: 13rem;
+    text-indent: 0.25rem;
+    line-height: 2.875rem;
+    letter-spacing: 0.0625rem;
+}
+.v-nav-body li a{
+    /* text-align: center; */
+    line-height: 1.625rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #555454;
+    cursor: pointer;
+    border-radius: 0;
+}
+.nav-active {
+    text-decoration: none;
+    background-color: #eee;
+}
+.v-nav-body li a span{
+    font-size: 1rem;
+    margin-right:  1.25rem;
+}
+.v-nav-footer {
+    width: 13rem;
+    height: 1.25rem;
+    position: absolute;
+    left: 0.625rem;
+    font-size: 1rem;
+    bottom: 0.625rem;
+    overflow: hidden;
+}
+
+/* 点击菜单按钮 */
+.v-active .v-nav-left {
+    width: 3.75rem;
+    overflow: hidden;
+}
+.v-active .v-nav-body {
+    width: 3.75rem;
+    text-indent: 0;
+}
+.v-active .v-nav-header img {
+    margin-left: 0.1875rem;
+}
+.v-active .v-nav-body li a{
+    height: 2.5rem;
+    overflow: hidden;
+}
+.v-active .v-nav-footer {
+    width: 3.75rem;
+    overflow: hidden;
+    left: 0.3125rem;
+}
+
+/* content  start */
+.v-active .v-content {
+    width: calc(100% - 3.75rem);
+}
+.v-content {
+    width: calc(100% - 13rem);
+    height: 100%;
+    /* background:red ; */
+}
+.v-content-header {
+    height: 4.125rem;
+    width: 100%;
+    line-height: 4.125rem;
+    padding: 0 0.625rem;
+    background-color: #ffffff;
+    box-shadow: 0 0.625rem 0.625rem -0.625rem rgba(0, 0, 0, 0.1);
+}
+.v-header-left span{
+    font-size: 1.125rem;
+}
+#btn-menu {
+    cursor: pointer;
+}
+
+.v-content-body {
+    width: 100%;
+    height: calc(100% - 4.125rem);
+    padding: 0.625rem 0 0 0.625rem;
+    /* background-color: #ffffff; */
+}
+
+.glyphicon {
+    top:0;
+}
+
+
+#tgqrimg {
+    float: right;
+}
+#tgqrimg h5{
+    margin: 0;
+    padding: 0;
+    text-indent: 60px;
+}
+
+/* 小屏幕（平板，大于等于 48rem） */
+@media (min-width: 48rem) { 
+    .v-nav-left {
+        border-right: 0.0625rem solid rgba(0, 0, 0, .09);
+    }
+}

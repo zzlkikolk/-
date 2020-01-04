@@ -1,0 +1,70 @@
+<div style="background-color:#ffffff;padding:10px;height:100%;">
+    <button id="downloadExcel" class="btn btn-info btn-xs pull-right">导出Excel  </button>
+    <table id="tableToExce" class="table table-hover">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>姓名</th>
+          <th>性别</th>
+          <th>电话</th>
+          <th>单位</th>
+          <th id="agent">邀请人</th>
+          <th>用户Url</th>
+          <th>报名时间</th>
+        </tr>
+      </thead>
+      <tbody id="msg">
+      </tbody>
+    </table>
+    <script>
+    // 缓存数据
+    $(function(){
+      // 渲染数据
+      var url = "";
+      var str = '';
+      if(window.location.href.indexOf('agent')!==-1){
+          url = 'agentUsers';
+          $("#agent").addClass("hidden");
+      }else {
+        url = 'adminUsers';
+        str = 'a';
+      }
+      var page = $("#page");
+      if(page.data('users')==undefined)
+          $.getJSON(url,function(res){
+            if(res.status==200){
+              var info = '';
+              var url = window.location.href.slice(0,window.location.href.lastIndexOf("/")+1)
+              $.each(res.data,function(i,item){
+                info+='<tr>'
+                +'<td>'+item.id+'</td>'
+                +'<td>'+item.u_name+'</td>'
+                +'<td>'+(item.u_sex==null ? "未知" : item.u_sex=="man" ? "男":"女")+'</td>'
+                +'<td>'+item.phone+'</td>'
+                +'<td>'+item.unit_name+'</td>'
+                + (str=='a' ? '<td>'+(item.a_name==null ? "无": item.a_name) +'</td>' :'')
+                +'<td>'+url+"success.html?h="+(item.u_hash == null ? '':item.u_hash) +'</td>'
+                +'<td>'+item.create_time+'</td>'
+                +'</tr>';
+              })
+              $('#msg').html(info);
+              // 保存当前页面数据
+              page.data('users',page.html());
+            }else {
+              alert(res.msg);
+            }
+
+          });
+
+      // 导出Excel
+        $('#downloadExcel').click(function(){
+            if($('#msg>tr').length>=1){
+                downloadExcel('tableToExce', '代理人信息');
+            }else {
+                alert('表格没有数据');
+            }
+        })
+    })
+    </script>
+</div>
+

@@ -1,0 +1,59 @@
+@charset 'utf-8';
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+input:focus,button:focus {
+    outline: none !important;
+}
+
+
+
+label {
+    cursor: pointer;
+}
+label b {
+    font-size: 12px;
+    line-height: 20px;
+    float: right;
+}
+label i {
+    font-size: 18px;
+    font-style: normal;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    color: #fff;
+    margin: 0 12px 0 0px;
+    border: #dcdfe6 1px solid;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"]+i {
+    border-radius: 50%;
+}
+
+input[type="radio"]:checked+i {
+    background: #fff;
+    border: 1px solid #7ed6df;
+    position: relative;
+}
+
+input[type="radio"]:checked+i:after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    background: #7ed6df;
+    border-radius: 50%;
+}

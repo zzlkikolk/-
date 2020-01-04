@@ -1,0 +1,68 @@
+
+<div style="background-color:#ffffff;height:100%;padding:10% 0;">
+    <div class="form-horizontal col-xs-12 col-sm-10 pull-left" >
+        <div class="form-group">
+            <label for="a_id" class="control-label col-sm-offset-1 col-sm-1 ">ID: </label>
+            <b id="a_id" class="col-sm-1"></b>
+        </div>
+        <div class="form-group">
+            <label for="a_name" class="control-label col-sm-offset-1 col-sm-1">姓名:</label>
+            <b  id="a_name" class="col-sm-1"></b>
+        </div>
+        <div class="form-group">
+            <label for="sex" class="control-label col-sm-offset-1 col-sm-1">性别:</label>
+            <b id="sex" class="col-sm-1"></b>
+        </div>
+        <div class="form-group">
+            <label for="phone"  class="control-label col-sm-offset-1 col-sm-1">电话:</label>
+            <b id="phone" class="col-sm-2"></b>
+        </div>
+        <div class="form-group">
+            <label for="prove" class="control-label col-sm-offset-1 col-sm-1">身份证:</label>
+            <b id="prove" class="col-sm-2"></b>
+        </div>
+    </div>
+    <div id="tgqrimg" class="col-xs-10 col-sm-2">
+        <h5>推广二维码：</h5>
+        <div id="qrimg"class="col-sm-12" ></div>
+    </div>
+    <script>
+        $(function(){
+            var page = $("#page");
+            // 二维码
+            resCode();
+            // 所有数据渲染
+            if(page.data("user-info")==undefined)
+                $.getJSON("agentInfo",function(res){
+                    if(res.status==200){
+                       var info =  res.data;
+                       $('#a_id').text(info.id);
+                       $('#a_name').text(info.a_name);
+                       $('#sex').text(info.a_sex==null ? "未知" : info.a_sex==="man" ? "男":"女");
+                       $('#phone').text(info.a_phone);
+                       $('#prove').text(info.a_prove);
+                       // 二维码
+                       resCode();
+                       // 保存当前页面数据
+                       page.data('user-info',page.html());
+                    }else {
+                        alert(res.msg);
+                    }
+                });
+            // 二维码
+            $()
+
+            function resCode(){
+            var $qrimg = $("#qrimg");
+                $qrimg.html('');
+                var url = window.location.href.slice(0,window.location.href.lastIndexOf("/")+1);
+                $qrimg.qrcode({
+                      width: 160, //宽度
+                      height:160, //高度
+                      text: url+"?a="+$('#a_id').text()
+                   });
+            }
+        });
+    </script>
+</div>
+

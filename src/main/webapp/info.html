@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>管理员登陆</title>
+    <link rel="stylesheet" href="./lib/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./lib/base.css">
+    <link rel="stylesheet" href="./css/v-info.css">
+</head>
+<body>
+    <!-- nav-left start-->
+    <nav class="v-nav-left pull-left">
+        <header class="v-nav-header">
+            <img src="./img/logo.png" alt="logo" >
+            <h1>驾校报名</h1>
+        </header>
+        <ul class="nav nav-pills nav-stacked v-nav-body">
+            <li role="presentation" data-toggle="tooltip" data-placement="right" title="个人信息管理">
+                <a id="user-info"><span class="glyphicon glyphicon-home"></span>个人信息管理</a>
+            </li>
+            <li role="presentation" data-toggle="tooltip" data-placement="right" title="邀请人信息管理">
+                <a id="agents" ><span class="glyphicon glyphicon-user"></span>推荐人管理</a>
+            </li>
+            <li role="presentation" data-toggle="tooltip" data-placement="right" title="邀请人信息管理">
+                <a id="users" ><span class="glyphicon glyphicon-user"></span>邀请人管理</a>
+            </li>
+        </ul>
+        <footer class="v-nav-footer">
+            &copy; 2019 eayoutech.com 版权所有
+        </footer>
+    </nav>
+    <!-- content right -->
+    <section class="v-content pull-left">
+        <!-- header start -->
+        <header class="v-content-header"> 
+            <nav class="pull-left v-header-left">
+                <span id="btn-menu" class="glyphicon glyphicon-th-list"></span>
+            </nav>
+            <nav class="pull-right v-header-right">
+                <button id="refresh" class="btn btn-success btn-xs">刷新缓存</button>
+                <button id="exit" class="btn btn-danger btn-xs">退出登录</button>
+            </nav>
+        </header>
+        <!-- body start -->
+        <section id="page" class="v-content-body">
+        </section>
+    </section>
+    
+    <script src="./lib/jquery-3.4.1.min.js" charset="utf-8"></script>
+    <script src="./lib/bootstrap-3.3.7-dist/js/bootstrap.min.js" charset="utf-8"></script>
+    <script src="./lib/jquery.qrcode.min.js" charset="utf-8"></script>
+    <script src="./lib/plug-in.js" charset="utf-8"></script>
+    <script src="./js/v-info.js" charset="utf-8"></script>
+    
+</body>
+</html>

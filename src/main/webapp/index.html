@@ -1,0 +1,78 @@
+<!--
+ * @Descripttion: 
+ * @version: 1.0.0
+ * @Author: 鱼小陌
+ * @Date: 2019-09-04 19:25:07
+ * @LastEditors: 鱼小陌
+ * @LastEditTime: 2019-09-07 11:11:02
+ -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- maximum-scale=1, user-scalable=no"  在移动端禁止用户缩放 -- 只能滚动 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>驾校报名</title>
+    <!-- 引用Bootstarp的css -->
+    <link rel="stylesheet" href="./lib/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./lib/base.css">
+    <link rel="stylesheet" href="./css/v-index.css">
+</head>
+<body class="container-fluid">
+    <div class="v-content  col-md-offset-7 form-horizontal">
+        <h1>驾校报名</h1>
+        <div id="alertResult" class="alert alert-dismissible fade in container-fluid hidden" role="alert">
+            <button type="button" class="close" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <strong></strong>
+        </div>
+        <div class="input-group input-group-lg">
+            <label for="name" class="input-group-addon glyphicon glyphicon-user"></label>
+            <input type="text" class="form-control" id="name" placeholder="姓名" data-toggle="tooltip" data-placement="top" title="请输入2-6位中文">
+        </div>
+        <div class="input-group input-group-lg">
+            <label for="phone" class="input-group-addon glyphicon glyphicon-earphone"></label>
+            <input type="text" class="form-control" id="phone" placeholder="手机号码" data-toggle="tooltip" data-placement="top" title="请输入11位数字号码">
+        </div>
+        <div class="input-group input-group-lg">
+            <label for="prove" class="input-group-addon glyphicon glyphicon glyphicon-bookmark"></label>
+            <input type="text" class="form-control" id="prove" placeholder="身份证号" data-toggle="tooltip" data-placement="top" title="请输入18位数字号码">
+        </div>
+        <div class="input-group input-group-lg">
+            <label  for="sex" class="input-group-addon glyphicon glyphicon-tag"></label>
+            <select class="form-control" id="sex">
+                <option value="man">男</option>
+                <option value="woman">女</option>
+            </select>
+        </div>
+        <div class="input-group input-group-lg">
+            <label for="unit" class="input-group-addon glyphicon glyphicon-briefcase"></label>
+            <select class="form-control" id="unit">
+                <option value="1">江西制造职业技术学院</option>
+            </select>
+        </div>
+        <div class="input-group input-group-lg">
+            <label for="code" class="input-group-addon glyphicon glyphicon-info-sign"></label>
+            <input type="text" class="form-control" id="code" placeholder="验证码" data-toggle="tooltip" data-placement="top" title="点击验证码刷新">
+            <span class="input-group-addon v-code">
+                <img id="codeimg" src="./img/logo.png" title="点击刷新" alt="验证码">
+            </span>
+        </div>
+        <div class="input-group-lg v-sub ">
+            <button id="sub" type="button" class="btn btn-default btn-group-lg " data-loading-text="提交中..." autocomplete="off">提 交 信 息</button>
+        </div>
+        <footer>
+            <b style="color: aliceblue">特别说明：&nbsp;&nbsp;</b>
+            通过本平台报名成功的用户去现代驾校缴费可以享受<strong> 1980元 </strong>的优惠价。
+            报名成功后请保留报名成功的屏幕截图以便工作人员查实！
+            <br/>最终解释权归 <a href="http://www.ncxdjx.com/" target="_black"><b>现代驾校</b></a> 所有!
+        </footer>
+    </div>
+    <script src="./lib/jquery-3.4.1.min.js" charset="utf-8"></script>
+    <script src="./lib/bootstrap-3.3.7-dist/js/bootstrap.min.js" charset="utf-8"></script>
+    <script src="./lib/plug-in.js" charset="utf-8"></script>
+    <script src="./js/v-index.js" charset="utf-8"></script>
+</body>
+
+</html>

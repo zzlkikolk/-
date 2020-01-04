@@ -1,0 +1,96 @@
+/*
+ * @Descripttion: 
+ * @version: 1.0.0
+ * @Author: 鱼小陌
+ * @Date: 2019-09-04 19:25:07
+ * @LastEditors: 鱼小陌
+ * @LastEditTime: 2019-09-06 15:37:57
+ */
+
+@charset "utf-8";
+
+body {
+    text-align: center;
+    padding-top: 5rem;
+}
+.v-login {
+    padding: 2rem 1rem;
+    width: 28.5rem;
+    background-color: #ffffff;
+    border-radius: 1rem;
+    margin:auto;
+}
+.v-login-header img {
+    height: 5rem;
+    width: 5rem;
+    margin-top: -4rem;
+    box-shadow: 0 0.4375rem 1.5625rem rgba(0, 0, 0, .08);
+    border-radius: 3.125rem;
+}
+.v-login-header h1 {
+    margin: 0.625rem auto 0;
+    font-size: 1.125rem;
+    font-weight: 600; 
+    letter-spacing: 0.125rem;
+    color: #7ed6df;
+}
+.v-login-body {
+    padding: 0 1.875rem 0;
+    text-align: left;
+    color: #44494b;
+}
+.v-input-code {
+    width: 11.25rem;
+    float: left;
+}
+.v-code-img {
+    width: 10.5rem;
+    height: 2rem;
+    margin-left: 0.75rem;
+    cursor: pointer;
+}
+.v-login-footer {
+    padding: 0 1.875rem;
+}
+
+.v-login-sub {
+    width: 100%;
+    margin-top: 12px;
+    letter-spacing: 0.75rem;
+}
+footer {
+    width: 100%;
+    margin-top: 10%;
+}
+
+@media (min-width: 768px) {
+    body {
+        background-color: #ecf0f1;
+        padding-top: 12.5rem;
+    }
+    .v-login {
+        box-shadow: 0 0.4375rem 1.5625rem rgba(0, 0, 0, .08);
+    }
+    .v-login-header img {
+        height: 6rem;
+        width: 6rem;
+        margin-top: -5rem;
+    }
+    .form-group label {
+        font-size: 0.875rem;
+    }
+    .form-group input {
+        height: 2.625rem;
+        font-size: 1rem;
+    }
+    .form-group select {
+        height: 2.625rem;
+        font-size: 1rem;
+    }
+    .v-code-img {
+        height: 3.5rem;
+    }
+    .v-login-sub {
+        height: 2.625rem;
+    }
+}

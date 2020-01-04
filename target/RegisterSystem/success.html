@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>用户信息</title>
+    <style type="text/css">
+        html,body{
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: rgb(236, 240, 241);
+        }
+        #info {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 300px;
+            height: 460px;
+            margin-left: -150px;
+            margin-top: -250px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 7px 25px rgba(0, 0, 0, .08);
+        }
+        #info div{
+            width: 150px;
+            height: 150px;
+            float: left;
+            margin-top: 20px;
+        }
+        footer {
+            width: 100%;
+            text-align: center;
+            margin-top: 90%;
+        }
+    </style>
+</head>
+<body>
+<section id="info">
+    <p>用户ID：<b id="userid"></b></p>
+    <p>姓名：<b id="name"></b></p>
+    <p>性别：<b id="sex"></b></p>
+    <p>手机号：<b id="phone"></b></p>
+    <p>单位：<b id="unit"></b></p>
+    <p>提交时间：<b id="time"></b></p>
+    <p style="float: left">本页二维码：</p><div id="qrimg" title="二维码"></div>
+</section>
+<footer class="v-nav-footer">CopyRight &copy; 2019 VR参赛组版权所有！</footer>
+<script src="./lib/jquery-3.4.1.min.js" charset="utf-8"></script>
+<script src="./lib/jquery.qrcode.min.js" charset="utf-8"></script>
+<script src="./lib/plug-in.js" charset="utf-8"></script>
+<script type="text/javascript">
+    // 二维码
+    $(function(){
+        if(!$.getUrlParam('h')){
+            return window.location.href = "./";
+        }
+        // 渲染数据
+        $.ajax({
+            type: "post",  //默认get
+            url: "./userInfo",  //默认当前页
+            data: { hash: $.getUrlParam('h')},  //格式{key:value}
+            dataType: "json",
+            success: function (res) {  //请求成功回调
+                if(res.status==200&&res.data!=null){
+                    var data = res.data;
+                    $("#userid").text(data.id);
+                    $("#name").text(data.u_name);
+                    $("#sex").text(data.u_sex==null ? "未知":data.u_sex=="man" ? "男":"女");
+                    $("#phone").text(data.phone);
+                    $("#unit").text(data.unit_name);
+                    $("#time").text(data.create_time);
+                    document.title = data.u_name + "恭喜您报名成功";
+                }else {
+                    alert(res.msg);
+                }
+            },
+            error: function (e) {  //请求超时回调
+                if(e.statusText == "timeout"){
+                    alert("请求超时");
+                }
+                alert(e.statusText);
+            }
+        });
+        // 二维码
+        $("#qrimg").qrcode({
+            //ender: "table", //table方式
+            width: 150, //宽度
+            height: 150, //高度
+            text: window.location.href
+        });
+    })
+    
+</script>
+</body>
+</html>

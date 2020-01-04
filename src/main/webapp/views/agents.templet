@@ -1,0 +1,157 @@
+<div style="background-color:#ffffff;padding:10px;height:100%;">
+   <button id="downloadExcel" class="btn btn-info btn-xs pull-right" style="margin-left:20px;">导出Excel  </button>
+    <button type="button" id="add" class="btn btn-primary btn-xs pull-right" data-toggle="modal"  data-target="#addAgent">
+      添加新代理人
+    </button>
+    <!-- Modal -->
+    <div class="modal fade bs-example-modal-sm" id="addAgent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">X</span></button>
+            <h4 class="modal-title" id="myModalLabel">添加新代理人</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+                <label for="agentName">姓名：</label>
+                <input type="text" class="form-control" id="agentName" placeholder="请输入姓名"></input>
+            </div>
+            <div class="form-group">
+                <label for="agentSex">性别：</label>
+                <select id="agentSex" class="form-control">
+                    <option value="man">男</option>
+                    <option value="woman">女</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="agentUnit">单位：</label>
+                <select id="agentUnit" class="form-control">
+                    <option value="江西制造职业技术学院">江西制造职业技术学院</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="agentPhone">电话：</label>
+                <input  id="agentPhone" type="text" class="form-control" placeholder="请输入电话"></input>
+            </div>
+            <div class="form-group">
+                <label for="agentPass">密码：</label>
+                <div class="input-group">
+                    <input id="agentPass" type="password" class="form-control"  placeholder="请输入密码"></input>
+                    <span class="input-group-addon glyphicon glyphicon-eye-close" style="cursor: pointer;"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="agentProve">身份证：</label>
+                <input id="agentProve" type="text" class="form-control"  placeholder="请输入身份证"></input>
+            </div>
+            <div class="form-group">
+                <label for="code" class="control-label">验证码：</label>
+                <div class="input-group">
+                    <input id="code" type="text" class="form-control pull-left"  placeholder="请输入验证码" style="width:50%;"></input>
+                    <img id="codeimg" src="" class="pull-left" alt="验证码" style="width:45%;height:32px;margin-left:4%;"></img>
+                </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            <button id="sub" type="button" class="btn btn-primary">提交</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <table id="tableToExcel" class="table table-hover">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>姓名</th>
+          <th>性别</th>
+          <th>电话</th>
+          <th>密码</th>
+          <th>身份证</th>
+        </tr>
+      </thead>
+      <tbody id="msg">
+      </tbody>
+    </table>
+    <script>
+    // 缓存数据
+    $(function(){
+        // 添加按钮
+        $('#add').click(function(){
+            // 验证码
+            var codeImgUrl = "getImg?t=";
+            $("#codeimg")
+                .click(function() {
+                    this.src = codeImgUrl + new Date().getTime();
+                })
+                .attr("src", codeImgUrl + new Date().getTime());
+        });
+         // 渲染数据
+        var page = $("#page");
+        if(page.data('agents')==undefined)
+            $.getJSON("adminAgents",function(res){
+                if(res.status==200){
+                var info = "";
+                $.each(res.data,function(i,item){
+                    info+="<tr>"
+                    +"<td>"+item.id+"</td>"
+                    +"<td>"+item.a_name+"</td>"
+                    +"<td>"+(item.a_sex==null ? "未知" : item.a_sex=="man" ? "男":"女")+"</td>"
+                    +"<td>"+item.a_phone+"</td>"
+                    +'<td>'+item.a_password+'</td>'
+                    +"<td>"+item.a_prove+"</td>"+
+                    +"</tr>";
+                });
+                    $("#msg").html(info);
+                    // 保存当前页面数据
+                    page.data('agents',page.html());
+                }else {
+                    alert(res.msg);
+                }
+            });
+         // 查看密码
+         $(".input-group .glyphicon").click(function(){
+           if($(this).hasClass("glyphicon-eye-close")){
+             $(this).removeClass("glyphicon-eye-close").addClass("glyphicon-eye-open").prev().attr("type","text");
+           }else {
+             $(this).removeClass("glyphicon-eye-open").addClass("glyphicon-eye-close").prev().attr("type","password")
+           }
+         });
+        // 添加代理人
+        $("#sub").click(function(){
+            var data = {
+              a_name:$("#agentName").val(),
+              a_sex:$("#agentSex").val(),
+              unit:$("#agentUnit").val(),
+              a_phone:$("#agentPhone").val(),
+              a_password:$("#agentPass").val(),
+              a_prove:$("#agentProve").val(),
+              code:$("#code").val()
+            };
+            $.ajax({
+              type: "POST",  //默认get
+              url: 'addAgent',  //默认当前页
+              data: data,  //格式{key:value}
+              dataType: "json",
+              success: function (res) {  //请求成功回调
+                  alert(res.msg);
+              },
+              error: function (e) {  //请求超时回调
+                  if(e.statusText === "timeout")e.statusText = "请求超时";
+                  alert(e.statusText);
+              },
+              complete: function () {$sub.button('reset');} //无论请求是成功还是失败都会执行的回调，常用全局成员的释放，或者页面状态的重置
+          });
+        });
+
+        // 导出Excel
+        $("#downloadExcel").click(function(){
+            if($("#msg>tr").length>=1){
+                downloadExcel("tableToExcel", "邀请人信息");
+            }else {
+                alert("表格没有数据");
+            }
+        })
+    })
+    </script>
+</div>
